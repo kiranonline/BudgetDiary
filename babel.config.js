@@ -9,7 +9,12 @@ module.exports = {
         alias: {
           '@app': './src',
           '@utils': './src/utils',
+          "@guards":"./src/guards",
+          "@themes":"./src/themes",
+          '@screens': './src/screens',
           '@localTypes': './src/types',
+          '@services': './src/services',
+          '@components': './src/components',
           '@localization': './src/localization',
         },
       },

@@ -5,7 +5,12 @@
     "paths" : {
       "@app/*": ["src/*"],
       "@utils":["src/utils/index"],
+      "@themes": ["src/themes/index"],
+      "@guards": ["src/guards/index"],
+      "@screens":["src/screens/index"],
       "@localTypes": ["src/types/index"],
+      "@services": ["src/services/index"],
+      "@components": ["src/components/index"],
       "@localization": ["src/localization/index"]
     }
   }
