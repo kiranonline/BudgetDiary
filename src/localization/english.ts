@@ -13,5 +13,10 @@ export const english = {
             "retryButtonText": "Retry Login",
             "cancelButtonText": "Cancel"
         }
+    },
+    "drawer":{
+        "options":{
+            "logout": "Logout"
+        }
     }
 }
