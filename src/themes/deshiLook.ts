@@ -1,6 +1,6 @@
-import { ThemeVariables } from '@localTypes';
+import { AppThemeStoreSlice } from '@localTypes';
 
-export const deshiLookTheme: ThemeVariables = {
+export const deshiLookTheme: AppThemeStoreSlice = {
     name: "Deshi Look",
     colors: {
         backgroundColor2: '#ffffff',
@@ -13,7 +13,9 @@ export const deshiLookTheme: ThemeVariables = {
 
     },
     font: {
-        size1: 23
+        size1: 20,
+        color1: '#fff',
+        color2: '#000'
     },
     shadows: {
 

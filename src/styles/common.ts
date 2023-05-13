@@ -1,8 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { ThemeVariables } from '@localTypes';
+import { AppThemeStoreSlice } from '@localTypes';
 
-export const getCommonStyles = (theme?: ThemeVariables) => StyleSheet.create({
+export const getCommonStyles = (theme?: AppThemeStoreSlice) => StyleSheet.create({
     transparentBg: {
         backgroundColor: 'transparent'
+    },
+    boldText: {
+        fontWeight: "500"
     }
 })

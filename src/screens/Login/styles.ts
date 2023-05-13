@@ -1,7 +1,7 @@
-import { ThemeVariables } from '@localTypes';
+import { AppThemeStoreSlice } from '@localTypes';
 import { StyleSheet } from 'react-native';
 
-export const getLoginScreenStyles = (theme?: ThemeVariables) => StyleSheet.create({
+export const getLoginScreenStyles = (theme?: AppThemeStoreSlice) => StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
@@ -14,12 +14,12 @@ export const getLoginScreenStyles = (theme?: ThemeVariables) => StyleSheet.creat
         left: 0,
         width: '200%',
         height: '200%',
-        backgroundColor: theme?.colors.primaryColor1,
+        backgroundColor: theme?.colors?.primaryColor1,
         borderRadius: 700
     },
     loginButtonWrapper: {
         position: 'absolute',
-        bottom: 40,
+        bottom: 90,
         width: '100%',
         display: 'flex',
         justifyContent: 'center',

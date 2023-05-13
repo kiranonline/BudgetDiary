@@ -1,4 +1,4 @@
-export interface ThemeVariables {
+export interface AppThemeStoreSlice {
     name: string;
     colors: {
         backgroundColor1: string;
@@ -10,7 +10,9 @@ export interface ThemeVariables {
         secondaryColor1: string;
     },
     font: {
-        size1: number
+        size1: number,
+        color1: string,
+        color2: string
     },
     shadows: Record<string, string>
 }

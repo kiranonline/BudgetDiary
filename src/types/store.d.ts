@@ -1,15 +1,7 @@
-import { ThemeVariables } from "./theme";
+import { AuthStoreSlice } from './auth';
+import { AppThemeStoreSlice } from "./theme";
 
-export interface ActionObject {
-    type: string;
-    payload: any
-}
-
-export interface Store {
-    appTheme?: ThemeVariables;
-}
-
-
-export enum ACTIONS {
-    SET_APP_THEME = 'SET_APP_THEME'
+export interface GlobalState {
+    appAuth?: AuthStoreSlice;
+    appTheme?: AppThemeStoreSlice;
 }

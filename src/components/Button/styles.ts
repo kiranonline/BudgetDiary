@@ -1,7 +1,7 @@
-import { ThemeVariables } from '@localTypes';
 import { StyleSheet } from 'react-native';
+import { AppThemeStoreSlice } from '@localTypes';
 
-export const getButtonStyles = (theme?: ThemeVariables) => StyleSheet.create({
+export const getButtonStyles = (theme?: AppThemeStoreSlice) => StyleSheet.create({
     buttonWrapper: {
         alignItems: 'center',
         justifyContent: 'center',

@@ -1,14 +1,15 @@
-import { useMemo } from 'react';
-import { useStore } from '@app/store';
-import { getButtonStyles } from './styles';
-import { getCommonStyles } from '@app/styles/common';
 import {
     GestureResponderEvent,
     TouchableOpacity,
     ViewStyle
 } from 'react-native';
+import { useMemo } from 'react';
+import { GlobalState } from '@app/types';
+import { useSelector } from 'react-redux';
+import { getButtonStyles } from './styles';
+import { getCommonStyles } from '@app/styles/common';
 
-export interface Props {
+interface Props {
     children: JSX.Element;
     onPress?: (event: GestureResponderEvent) => void;
     styles?: ViewStyle;
@@ -23,15 +24,9 @@ export const Button = (props: Props): JSX.Element => {
         appearance = 'TRANSPARENT',
         ...rest
     } = props;
-    const { state } = useStore();
-    const commonStyles = useMemo(
-        () => getCommonStyles(state.appTheme),
-        [state.appTheme]
-    );
-    const defaultStyles = useMemo(
-        () => getButtonStyles(state.appTheme),
-        [state.appTheme]
-    );
+    const appTheme = useSelector((state: GlobalState) => state?.appTheme);
+    const commonStyles = useMemo(() => getCommonStyles(appTheme), [appTheme]);
+    const defaultStyles = useMemo(() => getButtonStyles(appTheme), [appTheme]);
 
     return (
         <TouchableOpacity
