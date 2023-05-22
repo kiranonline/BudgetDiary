@@ -1,11 +1,11 @@
 import { Text, SafeAreaView } from 'react-native';
 
-export const HomeScreen = (): JSX.Element => {
+export const MyProfileScreen = (): JSX.Element => {
     return (
         <SafeAreaView>
-            <Text>Hello</Text>
+            <Text>Profile</Text>
         </SafeAreaView>
     );
 };
 
-export default HomeScreen;
+export default MyProfileScreen;

@@ -1,31 +1,33 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { debounce } from 'lodash';
+import { batchedSubscribe } from 'redux-batched-subscribe';
 import logger from 'redux-logger';
 import {
-    persistStore,
-    persistReducer,
     FLUSH,
-    REHYDRATE,
     PAUSE,
     PERSIST,
     PURGE,
     REGISTER,
-} from 'redux-persist'
-import { batchedSubscribe } from 'redux-batched-subscribe';
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+    REHYDRATE,
+    persistReducer,
+    persistStore,
+} from 'redux-persist';
 
+import AppConfigReducer from './AppConfigSlice';
 import AuthReducers from './AuthSlice';
-import ThemeReducer from './ThemeSlice';
+import MyAccountsReducer from './MyAccountsSlice';
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['appAuth']
+    whitelist: ['appAuth', 'myAccounts', 'appConfig']
 }
 
 const rootReducer = combineReducers({
-    appTheme: ThemeReducer,
-    appAuth: AuthReducers
+    appAuth: AuthReducers,
+    appConfig: AppConfigReducer,
+    myAccounts: MyAccountsReducer
 })
 
 const debounceNotify = debounce((notify: () => any) => notify());

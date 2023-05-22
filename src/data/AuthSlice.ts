@@ -1,10 +1,10 @@
-import { User, AuthStoreSlice } from '@app/types';
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { TAuthStoreSlice } from '@app/types';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isLoggedIn: false,
-} as AuthStoreSlice;
+} as TAuthStoreSlice;
 
 const AuthSlice = createSlice({
     name: 'appAuth',
@@ -19,7 +19,7 @@ const AuthSlice = createSlice({
             }
             return state;
         },
-        login(state, action: PayloadAction<Partial<AuthStoreSlice>>) {
+        login(state, action: PayloadAction<Partial<TAuthStoreSlice>>) {
             state = {
                 ...state,
                 ...action?.payload,

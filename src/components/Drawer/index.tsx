@@ -1,61 +1,89 @@
 import { useMemo } from 'react';
-import { logout } from '@app/data';
-import { GlobalState } from '@app/types';
+import { TGlobalState } from '@app/types';
 import { getDrawerStyles } from './styles';
+import { logoutAndClear } from '@app/utils';
 import { useTranslation } from 'react-i18next';
-import { getCommonStyles } from '@app/styles/common';
 import { useDispatch, useSelector } from 'react-redux';
-import { Image, View, Text } from 'react-native';
+import { View, Alert } from 'react-native';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-    FlatList,
-    ScrollView,
-    TouchableHighlight
-} from 'react-native-gesture-handler';
+    useTheme,
+    Drawer as DrawerWrapper,
+    Avatar,
+    Text
+} from 'react-native-paper';
 
 export const Drawer = (props: DrawerContentComponentProps): JSX.Element => {
-    const { appTheme, appAuth } = useSelector((state: GlobalState) => ({
-        appTheme: state?.appTheme,
-        appAuth: state?.appAuth
-    }));
+    const theme = useTheme();
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const commonStyles = useMemo(() => getCommonStyles(appTheme), [appTheme]);
-    const defaultStyles = useMemo(() => getDrawerStyles(appTheme), [appTheme]);
+    const navigation = useNavigation();
+    const appAuth = useSelector((state: TGlobalState) => state?.appAuth);
+    const defaultStyles = useMemo(() => getDrawerStyles(theme), [theme]);
+
+    const onLogout = async () => {
+        try {
+            logoutAndClear(dispatch);
+        } catch (error) {
+            Alert.alert(
+                t('drawer.options.logoutFailedTitle').toString(),
+                t('common.errors.unknown').toString(),
+                [
+                    {
+                        text: t('drawer.options.retryLogout').toString(),
+                        onPress: onLogout
+                    },
+                    {
+                        text: t('common.others.cancelButtonText').toString(),
+                        style: 'cancel'
+                    }
+                ]
+            );
+        }
+    };
 
     return (
-        <View style={[defaultStyles.drawerContainer]}>
-            <View style={[defaultStyles.profileSectionWrapper]}>
-                {appAuth?.user?.photo && (
-                    <Image
-                        alt="avatar"
-                        source={{ uri: appAuth?.user?.photo }}
-                        style={[defaultStyles?.profileImage]}
-                    />
-                )}
-                <Text style={[defaultStyles?.userName, commonStyles?.boldText]}>
-                    {appAuth?.user?.name}
-                </Text>
-            </View>
-            <FlatList
-                data={[
-                    {
-                        title: t('drawer.options.logout').toString(),
-                        onPress: () => {
-                            dispatch(logout());
-                        }
-                    }
-                ]}
-                renderItem={({ index, item }) => (
-                    <TouchableHighlight
-                        onPress={item?.onPress}
-                        style={[defaultStyles.options]}
+        <SafeAreaView>
+            <DrawerWrapper.Section style={[defaultStyles.drawerWrapper]}>
+                <View style={[defaultStyles.profileSectionWrapper]}>
+                    {appAuth?.user?.photo && (
+                        <Avatar.Image source={{ uri: appAuth?.user?.photo }} />
+                    )}
+                    <Text variant="titleLarge">{appAuth?.user?.name}</Text>
+                </View>
+                <DrawerWrapper.Item
+                    active
+                    icon={'home'}
+                    label={t('drawer.options.playground').toString()}
+                    onPress={(): void => navigation.navigate('Playground')}
+                />
+                <DrawerWrapper.Item
+                    icon={'account'}
+                    label={t('drawer.options.myProfile').toString()}
+                    onPress={(): void => navigation.navigate('Profile')}
+                />
+                <DrawerWrapper.Item
+                    icon={'hammer-screwdriver'}
+                    label={t('drawer.options.settings').toString()}
+                    onPress={(): void => navigation.navigate('Settings')}
+                />
+                <DrawerWrapper.Item
+                    icon={'logout'}
+                    label={t('drawer.options.logout').toString()}
+                    onPress={onLogout}
+                />
+                <View style={[defaultStyles.appInfo]}>
+                    <Text
+                        variant="labelLarge"
+                        style={[defaultStyles.appVersion]}
                     >
-                        <Text key={index}>{item?.title}</Text>
-                    </TouchableHighlight>
-                )}
-            />
-        </View>
+                        Version 1.0.0
+                    </Text>
+                </View>
+            </DrawerWrapper.Section>
+        </SafeAreaView>
     );
 };
 

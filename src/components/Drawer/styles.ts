@@ -1,34 +1,25 @@
 import { StyleSheet } from 'react-native';
-import { AppThemeStoreSlice } from '@localTypes';
+import { MD3Theme } from "react-native-paper";
 
 
-export const getDrawerStyles = (theme?: AppThemeStoreSlice) => StyleSheet.create({
-    drawerContainer: {
-        flexDirection: 'column',
-        backgroundColor: theme?.colors?.backgroundColor2,
+export const getDrawerStyles = (theme?: MD3Theme) => StyleSheet.create({
+    drawerWrapper: {
+        height: '100%'
     },
     profileSectionWrapper: {
-        padding: 50,
+        padding: 20,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
-        borderBottomWidth: 2
     },
-    profileImage: {
-        width: 80,
-        height: 80,
-        borderRadius: 100,
-        borderColor: theme?.colors?.primaryColor1,
-        borderWidth: 2
-    },
-    userName: {
-        fontSize: theme?.font?.size1,
-        color: theme?.font?.color2
-    },
-    options: {
-        padding: 10,
+    appInfo: {
         width: '100%',
-        backgroundColor: 'red'
+        position: 'absolute',
+        justifyContent: 'center',
+        bottom: 30
+    },
+    appVersion: {
+        textAlign: 'center'
     }
 })

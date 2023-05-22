@@ -1,11 +1,11 @@
-import { AppThemeStoreSlice } from '@localTypes';
 import { StyleSheet } from 'react-native';
+import { MD3Theme } from "react-native-paper";
 
-export const getLoginScreenStyles = (theme?: AppThemeStoreSlice) => StyleSheet.create({
+export const getLoginScreenStyles = (theme?: MD3Theme) => StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: theme?.colors?.backgroundColor1,
+        backgroundColor: theme?.colors?.background,
         position: 'relative'
     },
     illustration1: {
@@ -14,7 +14,7 @@ export const getLoginScreenStyles = (theme?: AppThemeStoreSlice) => StyleSheet.c
         left: 0,
         width: '200%',
         height: '200%',
-        backgroundColor: theme?.colors?.primaryColor1,
+        backgroundColor: theme?.colors?.primary,
         borderRadius: 700
     },
     loginButtonWrapper: {
@@ -26,16 +26,6 @@ export const getLoginScreenStyles = (theme?: AppThemeStoreSlice) => StyleSheet.c
         alignItems: 'center'
     },
     loginButton: {
-        gap: 10,
-        width: '70%',
-        borderWidth: 3,
-        borderRadius: 50,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        borderColor: theme?.colors?.primaryColor1,
-    },
-    loginButtonText: {
-        fontSize: theme?.font?.size1,
-        color: '#fff'
+        width: '60%'
     }
 })

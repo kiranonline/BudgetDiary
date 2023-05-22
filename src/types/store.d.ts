@@ -1,7 +1,9 @@
-import { AuthStoreSlice } from './auth';
-import { AppThemeStoreSlice } from "./theme";
+import { TAppConfig } from './appConfigs';
+import { TAuthStoreSlice } from './auth';
+import { TMyAccountSlice } from './myAccounts';
 
-export interface GlobalState {
-    appAuth?: AuthStoreSlice;
-    appTheme?: AppThemeStoreSlice;
+export interface TGlobalState {
+    appAuth?: TAuthStoreSlice;
+    appConfig?: TAppConfig,
+    myAccounts?: TMyAccountSlice;
 }

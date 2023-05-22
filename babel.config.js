@@ -10,7 +10,6 @@ module.exports = {
           '@app': './src',
           '@utils': './src/utils',
           "@guards":"./src/guards",
-          "@themes":"./src/themes",
           '@screens': './src/screens',
           '@localTypes': './src/types',
           '@services': './src/services',
@@ -21,4 +20,9 @@ module.exports = {
     ],
     'react-native-reanimated/plugin'
   ],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
 };

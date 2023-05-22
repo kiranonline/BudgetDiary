@@ -4,11 +4,10 @@
         "baseUrl": ".",
         "useUnknownInCatchVariables": false,
         "allowSyntheticDefaultImports": true,
+        "noUnusedLocals": true,
         "paths": {
             "@app/*": ["src/*"],
             "@utils": ["src/utils/index"],
-            "@themes": ["src/themes/index"],
-            "@guards": ["src/providers/index"],
             "@screens": ["src/screens/index"],
             "@localTypes": ["src/types/index"],
             "@services": ["src/services/index"],

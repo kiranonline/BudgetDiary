@@ -1,4 +1,4 @@
-export interface User {
+export interface TUser {
     id: string;
     email: string;
     name: string | null;
@@ -6,7 +6,7 @@ export interface User {
 }
 
 
-export interface AuthStoreSlice {
+export interface TAuthStoreSlice {
     isLoggedIn?: boolean;
     token: string | null;
     user?: User;

@@ -1,30 +1,23 @@
 import { useMemo } from 'react';
 import { login } from '@app/data';
-import { getConfig } from '@app/config';
-import { GlobalState } from '@app/types';
-import { Button } from '@app/components';
 import { useTranslation } from 'react-i18next';
 import { getLoginScreenStyles } from './styles';
 import {
     GoogleSignin,
     statusCodes
 } from '@react-native-google-signin/google-signin';
-import { useDispatch, useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Text, View, Alert, SafeAreaView } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { View, Alert, SafeAreaView } from 'react-native';
+import { useTheme, Button } from 'react-native-paper';
 
 export const LoginScreen = (): JSX.Element => {
     const dispatch = useDispatch();
-    const appTheme = useSelector((state: GlobalState) => state?.appTheme);
+    const theme = useTheme();
     const { t } = useTranslation();
-    const styles = useMemo(() => getLoginScreenStyles(appTheme), [appTheme]);
+    const defaultStyles = useMemo(() => getLoginScreenStyles(theme), [theme]);
 
     const onLoginWithGoogle = async () => {
         try {
-            GoogleSignin.configure({
-                iosClientId: getConfig('IOS_GOOGLE_API_KEY'),
-                webClientId: getConfig('WEB_GOOGLE_API_KEY')
-            });
             await GoogleSignin.hasPlayServices({
                 showPlayServicesUpdateDialog: true
             });
@@ -40,7 +33,6 @@ export const LoginScreen = (): JSX.Element => {
                     }
                 })
             );
-            // console.log(userInfo, 'userInfouserInfo');
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 Alert.alert(
@@ -57,7 +49,7 @@ export const LoginScreen = (): JSX.Element => {
                         },
                         {
                             text: t(
-                                'screens.loginScreen.cancelButtonText'
+                                'common.others.cancelButtonText'
                             ).toString(),
                             style: 'cancel'
                         }
@@ -72,7 +64,7 @@ export const LoginScreen = (): JSX.Element => {
                     [
                         {
                             text: t(
-                                'screens.loginScreen.cancelButtonText'
+                                'common.others.cancelButtonText'
                             ).toString(),
                             style: 'cancel'
                         }
@@ -85,7 +77,7 @@ export const LoginScreen = (): JSX.Element => {
                     [
                         {
                             text: t(
-                                'screens.loginScreen.cancelButtonText'
+                                'common.others.cancelButtonText'
                             ).toString(),
                             style: 'cancel'
                         }
@@ -97,24 +89,16 @@ export const LoginScreen = (): JSX.Element => {
 
     return (
         <SafeAreaView>
-            <View style={styles.container}>
-                <View style={styles.illustration1} />
-                <View style={styles.loginButtonWrapper}>
+            <View style={defaultStyles.container}>
+                <View style={defaultStyles.illustration1} />
+                <View style={defaultStyles.loginButtonWrapper}>
                     <Button
                         onPress={onLoginWithGoogle}
-                        appearance="TRANSPARENT"
-                        styles={styles.loginButton}
+                        style={[defaultStyles.loginButton]}
+                        icon="google"
+                        mode="contained"
                     >
-                        <>
-                            <Icon
-                                name="google"
-                                size={appTheme?.font?.size1}
-                                color={appTheme?.colors?.primaryColor1}
-                            />
-                            <Text style={styles.loginButtonText}>
-                                {t('screens.loginScreen.loginButtonText')}
-                            </Text>
-                        </>
+                        {t('screens.loginScreen.loginButtonText')}
                     </Button>
                 </View>
             </View>
