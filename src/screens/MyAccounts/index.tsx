@@ -1,30 +1,24 @@
-import { GlobalState } from '@app/types';
-import { useMemo, useState } from 'react';
-import { SafeAreaView, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { createStackNavigator } from '@react-navigation/stack';
+import CreateMyAccountsScreen from '../CreateMyAccount';
+import MyAccountsScreen from './MyAccounts';
+import { FC } from 'react';
 
-import { getMyAccountsStyles } from './styles';
-import { Text } from 'react-native-paper';
+const Stack = createStackNavigator();
 
-export const MyAccountsScreen = (): JSX.Element => {
-    const { appTheme, myAccounts } = useSelector((state: GlobalState) => ({
-        appTheme: state?.appTheme,
-        myAccounts: state?.myAccounts
-    }));
-    const defaultStyles = useMemo(
-        () => getMyAccountsStyles(appTheme),
-        [appTheme]
-    );
-
+export const MyAccountsScreenStack = (): JSX.Element => {
     return (
-        <SafeAreaView>
-            <View style={[defaultStyles.container]}>
-                {myAccounts?.myAccounts?.map((ele, id) => (
-                    <Text key={id}>{ele.name}</Text>
-                ))}
-            </View>
-        </SafeAreaView>
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen name="MyAccounts" component={MyAccountsScreen} />
+            <Stack.Screen
+                name="CreateMyAccount"
+                component={CreateMyAccountsScreen}
+            />
+        </Stack.Navigator>
     );
 };
 
-export default MyAccountsScreen;
+export default MyAccountsScreenStack;

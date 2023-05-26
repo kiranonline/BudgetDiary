@@ -1,15 +1,13 @@
-import { TMyAccount, TMyAccountCategrory } from '@app/types';
-import { useMemo } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { KeyboardAvoidingView, View } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import { getCreateMyAccountsStyles } from './styles';
-import { useTranslation } from 'react-i18next';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { AccountTypeBuilder } from '@app/builders';
-import { isEmpty } from 'lodash';
+import { AccountCategoryBuilder } from '@app/builders';
 import { createNewMyAccount } from '@app/data';
+import { TMyAccount, TMyAccountCategrory } from '@app/types';
+import { useNavigation } from '@react-navigation/native';
+import { isEmpty } from 'lodash';
+import { useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { KeyboardAvoidingView, View } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import {
     Appbar,
     Button,
@@ -19,11 +17,16 @@ import {
     TextInput,
     useTheme
 } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 
-const accountTypes = new AccountTypeBuilder();
+import { getCreateMyAccountsStyles } from './styles';
+import { getCommonStyles } from '@app/common';
+
+const accountCategories = new AccountCategoryBuilder();
 
 export const CreateMyAccountsScreen = (): JSX.Element => {
     const theme = useTheme();
+    const commonStyles = useMemo(() => getCommonStyles(theme), [theme]);
     const defaultStyles = useMemo(
         () => getCreateMyAccountsStyles(theme),
         [theme]
@@ -33,7 +36,7 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const selectedAccountType = form.watch('accountType');
+    const selectedAccountType = form.watch('accountCategory');
 
     const submitForm = () => {
         form.handleSubmit(
@@ -42,10 +45,10 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
                     const newAccount: Omit<TMyAccount, 'id'> = {
                         name: formData?.name,
                         amount: formData?.amount,
-                        accountType: formData?.accountType
+                        accountCategory: formData?.accountCategory
                     };
                     await dispatch(createNewMyAccount(newAccount));
-                    navigation.navigate('Accounts');
+                    navigation.navigate('MyAccounts');
                 } catch (error) {
                     console.log('Errors', error);
                 } finally {
@@ -59,7 +62,7 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
         <View>
             <Appbar.Header mode="small" elevated>
                 <Appbar.BackAction
-                    onPress={() => navigation.navigate('Accounts')}
+                    onPress={() => navigation.navigate('MyAccounts')}
                 />
                 <Appbar.Content
                     title={t(
@@ -118,7 +121,7 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
                                         ).toString()
                                     },
                                     pattern: {
-                                        value: /^\d+(\.\d{1,2})?$/,
+                                        value: /^[-+]?\d+(\.\d{1,2})?$/,
                                         message: t(
                                             'screens.playgroundScreen.addNewAccount.formFields.amount.validationMessages.pattern'
                                         ).toString()
@@ -155,21 +158,21 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
                                 value={selectedAccountType?.id}
                                 onValueChange={() => undefined}
                             >
-                                {accountTypes
+                                {accountCategories
                                     .getAllAccountTypes()
                                     .map(
                                         (
-                                            accountType: TMyAccountCategrory,
+                                            accountCategory: TMyAccountCategrory,
                                             accountTypeIndex: number
                                         ) => (
                                             <Controller
                                                 key={accountTypeIndex}
-                                                name="accountType"
+                                                name="accountCategory"
                                                 rules={{
                                                     required: {
                                                         value: true,
                                                         message: t(
-                                                            'screens.playgroundScreen.addNewAccount.formFields.accountType.validationMessages.required'
+                                                            'screens.playgroundScreen.addNewAccount.formFields.accountCategory.validationMessages.required'
                                                         ).toString()
                                                     }
                                                 }}
@@ -178,23 +181,25 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
                                                     <TouchableOpacity
                                                         ref={field.ref}
                                                         style={[
-                                                            defaultStyles.accountTypeRadioOption
+                                                            commonStyles.row,
+                                                            commonStyles.alighItemCenter,
+                                                            commonStyles.justifyContentFlexStart
                                                         ]}
                                                         onPress={() => {
                                                             field.onChange(
-                                                                accountType
+                                                                accountCategory
                                                             );
                                                             field.onBlur();
                                                         }}
                                                     >
                                                         <RadioButton.Android
                                                             value={
-                                                                accountType.id
+                                                                accountCategory.id
                                                             }
                                                         />
                                                         <Text>
                                                             {
-                                                                accountType.displayName
+                                                                accountCategory.displayName
                                                             }
                                                         </Text>
                                                     </TouchableOpacity>
@@ -207,11 +212,11 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
                                 type="error"
                                 visible={
                                     !isEmpty(
-                                        form.formState?.errors?.accountType
+                                        form.formState?.errors?.accountCategory
                                     )
                                 }
                             >
-                                {form.formState?.errors?.accountType?.message?.toString()}
+                                {form.formState?.errors?.accountCategory?.message?.toString()}
                             </HelperText>
                         </View>
                         <Button

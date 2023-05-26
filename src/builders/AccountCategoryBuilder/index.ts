@@ -1,9 +1,9 @@
 export * from './const';
 import { MY_ACCOUNT_CATEGORY_NAME, TMyAccountCategrory } from "@app/types";
-import { staticAccountTypes } from './const';
+import { staticAccountCategories } from './const';
 
-export class AccountTypeBuilder {
-    data: TMyAccountCategrory[] = staticAccountTypes;
+export class AccountCategoryBuilder {
+    data: TMyAccountCategrory[] = staticAccountCategories;
 
     constructor() {
 

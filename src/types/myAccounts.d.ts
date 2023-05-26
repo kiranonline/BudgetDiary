@@ -2,7 +2,7 @@ import { TMyAccountCategrory } from './common.d';
 
 export interface TMyAccount {
     id: string;
-    accountType: TMyAccountCategrory;
+    accountCategory: TMyAccountCategrory;
     amount: number;
     name: string;
 }

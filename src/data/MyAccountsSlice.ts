@@ -19,9 +19,16 @@ const MyAccountsSlice = createSlice({
                 }]
             }
             return state
+        },
+        deleteMyAccount(state, action: PayloadAction<string>) {
+            state = {
+                ...state,
+                myAccounts: state?.myAccounts?.filter?.(myAccount => myAccount?.id !== action.payload)
+            }
+            return state
         }
     },
 })
 
 export default MyAccountsSlice.reducer;
-export const { createNewMyAccount } = MyAccountsSlice.actions;
+export const { createNewMyAccount, deleteMyAccount } = MyAccountsSlice.actions;

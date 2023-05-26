@@ -22,4 +22,5 @@ export interface TMyAccountCategrory {
     name: MY_ACCOUNT_CATEGORY_NAME;
     displayName: string;
     quality: MY_ACCOUNT_CATEGORY_QUALITY_NAME;
+    icon: string;
 }

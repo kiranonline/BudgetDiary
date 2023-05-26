@@ -1,1 +1,1 @@
-export * from './AccountTypeBuilder';
+export * from './AccountCategoryBuilder';

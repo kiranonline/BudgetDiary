@@ -38,7 +38,7 @@ export const english = {
                             'pattern': 'Invalid amount'
                         }
                     },
-                    "accountType": {
+                    "accountCategory": {
                         "label": "Account Type",
                         "placeholder": "e.g. Savings",
                         'validationMessages': {
@@ -46,6 +46,17 @@ export const english = {
                         }
                     },
                     "saveButtontext": "Save"
+                }
+            },
+            "myAccounts": {
+                "pageTitle": "My Accounts",
+                "confirmDelete": {
+                    "title": "Delete Account ?",
+                    "description": "Do you want to delete this account, all the related transactions will be kept",
+                    "confirmButtonText": "Confirm"
+                },
+                "sortFilters": {
+                    "filterTitle": "Account Category"
                 }
             }
         }

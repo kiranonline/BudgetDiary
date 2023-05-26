@@ -8,11 +8,6 @@ export const getCreateMyAccountsStyles = (theme?: MD3Theme) => StyleSheet.create
         paddingHorizontal: 30,
         gap: 5
     },
-    accountTypeRadioOption: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
     saveButton: {
         marginTop: 30
     }
