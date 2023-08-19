@@ -1,23 +1,23 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import CreateMyAccountsScreen from '../CreateMyAccount';
-import MyAccountsScreen from './MyAccounts';
+import MyTransactions from './MyTransactions';
+import CreateMyAccountsScreen from '../CreateMyTransaction';
 
 const Stack = createStackNavigator();
 
-export const MyAccountsStackScreen = (): JSX.Element => {
+export const MyTransactionsStackScreen = (): JSX.Element => {
     return (
         <Stack.Navigator
             screenOptions={{
                 headerShown: false
             }}
         >
-            <Stack.Screen name="MyAccounts" component={MyAccountsScreen} />
+            <Stack.Screen name="MyTransactions" component={MyTransactions} />
             <Stack.Screen
-                name="CreateMyAccount"
+                name="CreateMyTransactions"
                 component={CreateMyAccountsScreen}
             />
         </Stack.Navigator>
     );
 };
 
-export default MyAccountsStackScreen;
+export default MyTransactionsStackScreen;

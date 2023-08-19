@@ -1,4 +1,5 @@
-import { MyAccountsScreenStack } from '@app/screens/MyAccounts';
+import { MyAccountsStackScreen } from '@app/screens/MyAccounts';
+import { MyTransactionsStackScreen } from '@app/screens/MyTransactions';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CommonActions } from '@react-navigation/native';
@@ -12,7 +13,7 @@ export const PlaygroundScreen = (): JSX.Element => {
 
     return (
         <Tab.Navigator
-            initialRouteName="Accounts"
+            initialRouteName="MyTransactions"
             screenOptions={{
                 headerShown: false
             }}
@@ -66,8 +67,21 @@ export const PlaygroundScreen = (): JSX.Element => {
             )}
         >
             <Tab.Screen
+                name="Transactions"
+                component={MyTransactionsStackScreen}
+                options={{
+                    title: t(
+                        'screens.playgroundScreen.tabs.myTransactionsLabel'
+                    ).toString(),
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <Icon name="notebook-edit" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tab.Screen
                 name="Accounts"
-                component={MyAccountsScreenStack}
+                component={MyAccountsStackScreen}
                 options={{
                     title: t(
                         'screens.playgroundScreen.tabs.myAccountsLabel'

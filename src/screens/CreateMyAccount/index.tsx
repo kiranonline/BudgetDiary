@@ -1,37 +1,33 @@
 import { AccountCategoryBuilder } from '@app/builders';
-import { createNewMyAccount } from '@app/data';
+import { getCommonStyles } from '@app/common';
+import { createNewMyAccount, updateMyAccount } from '@app/data';
 import { TMyAccount, TMyAccountCategrory } from '@app/types';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { isEmpty } from 'lodash';
 import { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import {
-    Appbar,
-    Button,
-    HelperText,
-    RadioButton,
-    Text,
-    TextInput,
-    useTheme
-} from 'react-native-paper';
+import { Appbar, Button, HelperText, RadioButton, Text, TextInput, useTheme } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 
 import { getCreateMyAccountsStyles } from './styles';
-import { getCommonStyles } from '@app/common';
 
 const accountCategories = new AccountCategoryBuilder();
 
 export const CreateMyAccountsScreen = (): JSX.Element => {
     const theme = useTheme();
+    const route = useRoute();
     const commonStyles = useMemo(() => getCommonStyles(theme), [theme]);
     const defaultStyles = useMemo(
         () => getCreateMyAccountsStyles(theme),
         [theme]
     );
-    const form = useForm();
+    const form = useForm({
+        defaultValues: route?.params?.account
+    });
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -42,12 +38,24 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
         form.handleSubmit(
             async (formData) => {
                 try {
-                    const newAccount: Omit<TMyAccount, 'id'> = {
-                        name: formData?.name,
-                        amount: formData?.amount,
-                        accountCategory: formData?.accountCategory
-                    };
-                    await dispatch(createNewMyAccount(newAccount));
+                    if (route?.params?.account?.id) {
+                        const updateAccountPayload: TMyAccount = {
+                            id: route?.params?.account?.id,
+                            name: formData?.name,
+                            amount: formData?.amount,
+                            accountCategory: formData?.accountCategory
+                        };
+
+                        await dispatch(updateMyAccount(updateAccountPayload));
+                    } else {
+                        const newAccount: Omit<TMyAccount, 'id'> = {
+                            name: formData?.name,
+                            amount: formData?.amount,
+                            accountCategory: formData?.accountCategory
+                        };
+                        await dispatch(createNewMyAccount(newAccount));
+                    }
+
                     navigation.navigate('MyAccounts');
                 } catch (error) {
                     console.log('Errors', error);
@@ -62,11 +70,13 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
         <View>
             <Appbar.Header mode="small" elevated>
                 <Appbar.BackAction
-                    onPress={() => navigation.navigate('MyAccounts')}
+                    onPress={() => navigation.navigate('MyAccounts' as never)}
                 />
                 <Appbar.Content
                     title={t(
-                        'screens.playgroundScreen.addNewAccount.pageTitle'
+                        route?.params?.account?.id
+                            ? 'screens.playgroundScreen.addNewAccount.updateAccountTitle'
+                            : 'screens.playgroundScreen.addNewAccount.pageTitle'
                     ).toString()}
                 />
             </Appbar.Header>
@@ -221,7 +231,7 @@ export const CreateMyAccountsScreen = (): JSX.Element => {
                         </View>
                         <Button
                             mode="contained"
-                            style={[defaultStyles.saveButton]}
+                            style={[commonStyles.m_t_20]}
                             onPress={submitForm}
                         >
                             {t(

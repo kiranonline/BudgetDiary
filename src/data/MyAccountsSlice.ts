@@ -14,9 +14,16 @@ const MyAccountsSlice = createSlice({
             state = {
                 ...state,
                 myAccounts: [...state.myAccounts, {
+                    ...action?.payload,
                     id: nanoid(),
-                    ...action?.payload
                 }]
+            }
+            return state
+        },
+        updateMyAccount(state, action: PayloadAction<TMyAccount>) {
+            state = {
+                ...state,
+                myAccounts: state.myAccounts.map(myAccount => (myAccount.id === action.payload.id) ? action?.payload : myAccount)
             }
             return state
         },
@@ -31,4 +38,4 @@ const MyAccountsSlice = createSlice({
 })
 
 export default MyAccountsSlice.reducer;
-export const { createNewMyAccount, deleteMyAccount } = MyAccountsSlice.actions;
+export const { createNewMyAccount, deleteMyAccount, updateMyAccount } = MyAccountsSlice.actions;

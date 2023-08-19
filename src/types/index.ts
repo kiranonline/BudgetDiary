@@ -6,4 +6,5 @@ export * from './localization.d';
 export * from './myAccountTag.d';
 export * from './myAccounts.d';
 export * from './store.d';
+export * from './transactionCategories.d';
 

@@ -1,26 +1,18 @@
+import { AccountCategoryBuilder } from '@app/builders';
 import { getCommonStyles } from '@app/common';
 import { deleteMyAccount } from '@app/data';
-import { TGlobalState, TMyAccount } from '@app/types';
+import { TGlobalState } from '@app/types';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import {
-    Appbar,
-    Avatar,
-    Caption,
-    FAB,
-    Modal,
-    Portal,
-    Text,
-    useTheme
-} from 'react-native-paper';
+import { Appbar, Avatar, Caption, FAB, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { arrangeAccountsByCategory } from './utils';
+
 import MyAccountsFilterScreen from './MyAccountsFilter';
 import { getMyAccountsStyles } from './styles';
-import { AccountCategoryBuilder } from '@app/builders';
+import { arrangeAccountsByCategory } from './utils';
 
 const accountCategories = new AccountCategoryBuilder();
 
@@ -179,7 +171,9 @@ export const MyAccountsScreen = (): JSX.Element => {
                                 <TouchableOpacity
                                     hitSlop={10}
                                     onPress={() =>
-                                        onDeleteMyAccountPress(item.id)
+                                        navigation.navigate('CreateMyAccount', {
+                                            account: item
+                                        })
                                     }
                                 >
                                     <Avatar.Icon size={35} icon="lead-pencil" />
@@ -204,7 +198,7 @@ export const MyAccountsScreen = (): JSX.Element => {
             <FAB
                 icon="plus"
                 style={defaultStyles.createNewAccountButton}
-                onPress={() => navigation.navigate('CreateMyAccount')}
+                onPress={() => navigation.navigate('CreateMyAccount' as never)}
             />
             <Portal>
                 <Modal

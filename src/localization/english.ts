@@ -18,10 +18,12 @@ export const english = {
         "playgroundScreen": {
             "tabs": {
                 "myAccountsLabel": "Accounts",
-                "createMyAccountsLabel": "Create Account"
+                "createMyAccountsLabel": "Create Account",
+                "myTransactionsLabel": "Transactions"
             },
             "addNewAccount": {
                 "pageTitle": "Add new Account",
+                "updateAccountTitle": "Update Account",
                 "formFields": {
                     "name": {
                         "label": "Account Name",
@@ -56,8 +58,29 @@ export const english = {
                     "confirmButtonText": "Confirm"
                 },
                 "sortFilters": {
-                    "filterTitle": "Account Category"
+                    "filterTitle": "Account Category",
+                    "selectAll": "Select All",
+                    "deselectAll": "Deselect All"
                 }
+            },
+            "myTransactions": {
+                "pageTitle": "My Transactions",
+            },
+            "addNewTransaction": {
+                "pageTitle": "Log Transaction",
+                "updateAccountTitle": "Update Transaction"
+            },
+            "settings": {
+                "pageTitle": "Settings",
+                "incomeCategorySettings": "Income Category Settings",
+                "expenseCategorySettings": "Expense Category Settings",
+            },
+            "transactionCategory": {
+                "pageTitle": "{{transactionCategoryGroup}} Category",
+            },
+            "createTransactionCategory": {
+                "pageTitle": "Add {{transactionCategoryGroup}} Category",
+                "updateAccountTitle": "Upodate {{transactionCategoryGroup}} Category"
             }
         }
     },

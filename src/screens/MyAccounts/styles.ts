@@ -34,10 +34,9 @@ export const getMyAccountsStyles = (theme?: MD3Theme) => StyleSheet.create({
         justifyContent: 'flex-start'
     },
     filtersTitleWrapper: {
-        padding: 10,
-        textAlign: 'center'
+
     },
     filtersOptionsWrapper: {
-        padding: 20
+
     }
 })

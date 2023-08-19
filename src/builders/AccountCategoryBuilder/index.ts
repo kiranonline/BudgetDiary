@@ -1,5 +1,5 @@
-export * from './const';
 import { MY_ACCOUNT_CATEGORY_NAME, TMyAccountCategrory } from "@app/types";
+
 import { staticAccountCategories } from './const';
 
 export class AccountCategoryBuilder {

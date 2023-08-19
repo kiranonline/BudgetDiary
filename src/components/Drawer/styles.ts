@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { MD3Theme } from "react-native-paper";
 
-
 export const getDrawerStyles = (theme?: MD3Theme) => StyleSheet.create({
     drawerWrapper: {
         height: '100%'
     },
     profileSectionWrapper: {
-        padding: 20,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

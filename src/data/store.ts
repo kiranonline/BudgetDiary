@@ -17,17 +17,19 @@ import {
 import AppConfigReducer from './AppConfigSlice';
 import AuthReducers from './AuthSlice';
 import MyAccountsReducer from './MyAccountsSlice';
+import TransactionCategoriesReducer from './TransactionCategorySlice';
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['appAuth', 'myAccounts', 'appConfig']
+    whitelist: ['appAuth', 'myAccounts', 'appConfig', 'transactionCategories']
 }
 
 const rootReducer = combineReducers({
     appAuth: AuthReducers,
     appConfig: AppConfigReducer,
-    myAccounts: MyAccountsReducer
+    myAccounts: MyAccountsReducer,
+    transactionCategories: TransactionCategoriesReducer
 })
 
 const debounceNotify = debounce((notify: () => any) => notify());

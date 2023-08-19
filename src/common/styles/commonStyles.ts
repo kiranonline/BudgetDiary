@@ -21,6 +21,9 @@ export const getCommonStyles = (theme?: MD3Theme) => StyleSheet.create({
     justifyContentFlexStart: {
         justifyContent: 'flex-start'
     },
+    justifyContentFlexEnd: {
+        justifyContent: 'flex-end'
+    },
     justifyContentCenter: {
         justifyContent: 'center'
     },
@@ -52,5 +55,15 @@ export const getCommonStyles = (theme?: MD3Theme) => StyleSheet.create({
     },
     greenBg: {
         backgroundColor: '#28a745'
+    },
+
+    p_10: {
+        padding: 10
+    },
+    p_20: {
+        padding: 20
+    },
+    m_t_20: {
+        marginTop: 20
     }
 })

@@ -1,13 +1,14 @@
-import PlaygroundScreen from '../Playground';
-import { useEffect } from 'react';
-import MyProfileScreen from '../MyProfile';
-import { logoutAndClear } from '@app/utils';
-import { useDispatch, useSelector } from 'react-redux';
 import { Drawer as CustomDrawer } from '@app/components';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { TGlobalState } from '@app/types';
-import CreateMyAccountsScreen from '../CreateMyAccount';
+import { logoutAndClear } from '@app/utils';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import MyProfileScreen from '../MyProfile';
+import PlaygroundScreen from '../Playground';
+import SettingsStackScreen from '../Settings';
 
 const Drawer = createDrawerNavigator();
 
@@ -41,7 +42,7 @@ export const DashboardScreen = (): JSX.Element => {
         >
             <Drawer.Screen component={PlaygroundScreen} name="Playground" />
             <Drawer.Screen component={MyProfileScreen} name="Profile" />
-            <Drawer.Screen component={CreateMyAccountsScreen} name="Test" />
+            <Drawer.Screen component={SettingsStackScreen} name="Settings" />
         </Drawer.Navigator>
     );
 };
